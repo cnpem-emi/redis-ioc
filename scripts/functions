@@ -1,0 +1,32 @@
+#!/bin/bash
+run(){
+    set +x
+    TOP=/opt/redis-ioc
+
+    echo ""
+    echo "###############################################################################"
+    echo "# ProcServ. Use \"socat - UNIX-CLIENT:<socket>\""
+
+    for filename in $(ls ${TOP}/cmd); do
+        echo "Starting procserv"
+        ip=$(echo $filename | sed -e "s/Redis-//" -e "s/\.cmd//")
+        if [[ ${ip} =~ ^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$ ]]; then
+            logFile=${TOP}/log/${filename}
+            iocName="$(echo ${filename} | sed  -e "s/\./_/g" -e "s/:/_/g" -e "s/_cmd//g")"
+            socket_name="${TOP}/sockets/${iocName}.sock"
+            set -x
+            procServ \
+                --name ${iocName}\
+                --quiet\
+                --killsig 9\
+                --logfile ${TOP}/log/${filename}\
+                --chdir ${TOP}/cmd\
+                unix:${socket_name}\
+                ${TOP}/cmd/${filename}
+            set +x
+            echo "# IOC: ${filename}    log_file: ${logFile}    unix_socket: ${socket_name}"
+        fi
+    done
+    echo "###############################################################################"
+    tail -f /dev/null
+}

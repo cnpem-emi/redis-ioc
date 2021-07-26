@@ -1,0 +1,8 @@
+[flake8]
+max-line-length = 119
+max-complexity = 18
+exclude =
+    .git,
+    __pycache__,
+    *.xlsx,
+    template.py

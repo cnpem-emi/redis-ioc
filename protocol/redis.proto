@@ -1,0 +1,38 @@
+ReplyTimeout = 300;
+Terminator = CR LF;
+
+getInteger {
+    out "GET \$1";
+    in "$%*d";
+    in "%d"; 
+}
+
+getFloat {
+    out "GET \$1";
+    in "$%*d";
+    in "%f";
+}
+
+getString {
+    out "GET \$1";
+    in "$%*d";
+    in "%#s";
+}
+
+setInteger {
+    out "SET \$1 %d";
+    in "+OK";
+}
+
+setFloat {
+    out "SET \$1 %f";
+    in "+OK";
+}
+
+setString {
+    out "SET \$1 \"%s\"";
+    in "+OK";
+}
+
+
+

@@ -26,6 +26,3 @@ A cada deploy do stack, o container puxa novas versões da spreadsheet desse rep
 ## Logs
 
 Localizados em `/opt/redis-ioc/log`
-
-## Performance
-Benchmarks disponíveis no repositório [general-benchmarks](https://gitlab.cnpem.br/guilherme.freitas/raw-ethernet-benchmark)
