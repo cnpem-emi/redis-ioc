@@ -19,6 +19,12 @@ getString {
     in "%#s";
 }
 
+getHash {
+    out "HGET \$1 \$2";
+    in "$%*d";
+    in "%f";
+}
+
 setInteger {
     out "SET \$1 %d";
     in "+OK";
@@ -34,5 +40,8 @@ setString {
     in "+OK";
 }
 
-
-
+setHash {
+    out "HSET \$1 \$2 %f";
+    in "$%*d";
+    in "%f";
+}

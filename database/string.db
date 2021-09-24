@@ -1,12 +1,7 @@
-record(ai, "$(RECORD_NAME)") {
+record(stringin, "$(RECORD_NAME)") {
     field(DESC, "$(DESCRIPTION)")
     field(DTYP, "stream")
     field(EGU, "$(EGU)")
     field(INP, "@redis.proto getString($(REDIS_KEY)) $(PORT)")
-    field(PREC, "$(PREC)")
     field(SCAN, "$(SCANRATE) second")
-    field(HIHI, "$(HIHI_VAL)")
-    field(HIGH, "$(HI_VAL)")
-    field(LOLO, "$(LOLO_VAL)")
-    field(LOW, "$(LO_VAL)")
 }

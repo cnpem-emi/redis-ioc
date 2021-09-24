@@ -1,0 +1,19 @@
+record(ai, "$(RECORD_NAME)-RB") {
+    field(DESC, "$(DESCRIPTION)")
+    field(DTYP, "stream")
+    field(EGU, "$(EGU)")
+    field(INP, "@redis.proto getFloat($(REDIS_KEY):RB) $(PORT)")
+    field(PREC, "$(PREC)")
+    field(SCAN, "$(SCANRATE) second")
+    field(HIHI, "$(HIHI_VAL)")
+    field(HIGH, "$(HI_VAL)")
+    field(LOLO, "$(LOLO_VAL)")
+    field(LOW, "$(LO_VAL)")
+}
+
+record(ao, "$(RECORD_NAME)-SP") {
+    field(DESC, "$(DESCRIPTION)")
+    field(DTYP, "stream")
+    field(OUT, "@redis.proto setFloat($(REDIS_KEY)) $(PORT)")
+}
+

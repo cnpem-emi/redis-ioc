@@ -13,7 +13,8 @@ Parâmetros obrigatórios:
 - Precision: Casas de precisão (para float)
 - Unit: EGU
 - Scanrate: Taxa de scan das PVs (para valores < 1, omita o 0. Exemplo: .1, .01, .001)
-- Type: Tipo de variável (float, int ou string)
+- Type: Tipo de variável (float, float_put, int, int_put, string, string_put)
+    - Variáveis "put" criam duas PVs, uma para setpoint (-SP) e uma para readback (-RB). Para exigir um readback "real", a chave Redis de readback é a chave especificada com o sufixo ":RB"
 
 Parâmetros opcionais: 
 - Rack: Não afeta o IOC
@@ -26,3 +27,6 @@ A cada deploy do stack, o container puxa novas versões da spreadsheet desse rep
 ## Logs
 
 Localizados em `/opt/redis-ioc/log`
+
+## Performance
+Benchmarks disponíveis no repositório [general-benchmarks](https://gitlab.cnpem.br/guilherme.freitas/raw-ethernet-benchmark)

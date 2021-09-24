@@ -1,7 +1,14 @@
 import os
 
 from db import Db
-from template import redis_template_float, redis_template_bot, redis_template_top, redis_template_top_redundant, redis_template_port
+from template import (
+    redis_template_float,
+    redis_template_bot,
+    redis_template_top,
+    redis_template_top_redundant,
+    redis_template_port,
+    redis_template_hash,
+)
 
 
 def generate_board(board, ip) -> str:
@@ -14,24 +21,42 @@ def generate_board(board, ip) -> str:
             port_dec += redis_template_port.safe_substitute(PORT_NO=i, PORT_IP=ip)
             ports.append('"L{}"'.format(i))
 
-        res += redis_template_top_redundant.safe_substitute(PORT_DECLARATIONS=port_dec, PORTS=",".join(ports))
+        res += redis_template_top_redundant.safe_substitute(
+            PORT_DECLARATIONS=port_dec, PORTS=",".join(ports)
+        )
     else:
         res += redis_template_top.safe_substitute(IP_ADDR=ip)
 
     for device in board:
-        res += redis_template_float.safe_substitute(
-            DESCRIPTION=device["Location"],
-            RECORD_NAME=device["PV"],
-            SCANRATE=device["Scanrate"],
-            PREC=device["Precision"],
-            EGU=device["Unit"],
-            REDIS_KEY=device["Key"],
-            TYPE=device["Type"],
-            HIGH=device["HIGH"],
-            HIHI=device["HIHI"],
-            LOW=device["LOW"],
-            LOLO=device["LOLO"]
-        )
+        if device["Type"] == "hash_put" or device["Type"] == "hash":
+            res += redis_template_hash.safe_substitute(
+                DESCRIPTION=device["Location"],
+                RECORD_NAME=device["PV"],
+                SCANRATE=device["Scanrate"],
+                PREC=device["Precision"],
+                EGU=device["Unit"],
+                REDIS_KEY=device["Key"].split(":")[0],
+                REDIS_HASH=device["Key"].split(":")[1],
+                TYPE=device["Type"],
+                HIGH=device["HIGH"],
+                HIHI=device["HIHI"],
+                LOW=device["LOW"],
+                LOLO=device["LOLO"],
+            )
+        else:
+            res += redis_template_float.safe_substitute(
+                DESCRIPTION=device["Location"],
+                RECORD_NAME=device["PV"],
+                SCANRATE=device["Scanrate"],
+                PREC=device["Precision"],
+                EGU=device["Unit"],
+                REDIS_KEY=device["Key"],
+                TYPE=device["Type"],
+                HIGH=device["HIGH"],
+                HIHI=device["HIHI"],
+                LOW=device["LOW"],
+                LOLO=device["LOLO"],
+            )
 
         count += 1
 
