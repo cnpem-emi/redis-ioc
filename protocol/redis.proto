@@ -4,25 +4,29 @@ Terminator = CR LF;
 getInteger {
     out "GET \$1";
     in "$%*d";
-    in "%d"; 
+    in "%d";
+    @replytimeout {disconnect; wait 5000; connect 500;}
 }
 
 getFloat {
     out "GET \$1";
     in "$%*d";
     in "%f";
+    @replytimeout {disconnect; wait 5000; connect 500;}
 }
 
 getString {
     out "GET \$1";
     in "$%*d";
     in "%#s";
+    @replytimeout {disconnect; wait 5000; connect 500;}
 }
 
 getHash {
     out "HGET \$1 \$2";
     in "$%*d";
     in "%f";
+    @replytimeout {disconnect; wait 5000; connect 500;}
 }
 
 setInteger {
