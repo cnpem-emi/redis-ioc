@@ -32,7 +32,7 @@ def generate_board(board, ip) -> str:
             res += redis_template_hash.safe_substitute(
                 DESCRIPTION=device["Location"],
                 RECORD_NAME=device["PV"],
-                SCANRATE=device["Scanrate"],
+                SCANRATE=device["Scanrate"].replace("0.", "."),
                 PREC=device["Precision"],
                 EGU=device["Unit"],
                 REDIS_KEY=device["Key"].split(":")[0],
@@ -47,7 +47,7 @@ def generate_board(board, ip) -> str:
             res += redis_template_float.safe_substitute(
                 DESCRIPTION=device["Location"],
                 RECORD_NAME=device["PV"],
-                SCANRATE=device["Scanrate"],
+                SCANRATE=device["Scanrate"].replace("0.", "."),
                 PREC=device["Precision"],
                 EGU=device["Unit"],
                 REDIS_KEY=device["Key"],

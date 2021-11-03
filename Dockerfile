@@ -10,8 +10,8 @@ RUN cd ${EPICS_MODULES};\
 
 WORKDIR /opt/redis-ioc
 
-RUN apt-get -y update && apt-get install -y python3 python3-pip && \
-    pip3 install openpyxl pandas && mkdir -p sockets && mkdir -p log
+RUN apt-get -y update && apt-get install -y python3 curl python3-pip && \
+    pip3 install pylightxl && mkdir -p sockets && mkdir -p log
 
 COPY . . 
 
