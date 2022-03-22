@@ -11,7 +11,7 @@ record(ai, "$(RECORD_NAME)-RB") {
     field(LOW, "$(LO_VAL)")
 }
 
-record(ao, "$(RECORD_NAME)-SP") {
+record(ao, "$(RECORD_NAME)") {
     field(DESC, "$(DESCRIPTION)")
     field(DTYP, "stream")
     field(OUT, "@redis.proto setHash($(REDIS_KEY),$(REDIS_HASH)) $(PORT)")

@@ -7,7 +7,7 @@ record(ai, "$(RECORD_NAME)-RB") {
     field(SCAN, "$(SCANRATE) second")
 }
 
-record(ao, "$(RECORD_NAME)-SP") {
+record(ao, "$(RECORD_NAME)") {
     field(DESC, "$(DESCRIPTION)")
     field(DTYP, "stream")
     field(OUT, "@redis.proto setInteger($(REDIS_KEY)) $(PORT)")
