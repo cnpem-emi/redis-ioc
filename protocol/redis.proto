@@ -57,3 +57,9 @@ setHash {
     in "$%*d";
     in "%f";
 }
+
+setArray {
+    separator=" ";
+    out "DEL \$1";
+    out "LPUSH \$1 %f";
+}

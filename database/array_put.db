@@ -1,0 +1,7 @@
+record(aao, "$(RECORD_NAME)") {
+    field(DESC, "$(DESCRIPTION)")
+    field(DTYP, "stream")
+    field(OUT, "@redis.proto setArray($(REDIS_KEY)) $(PORT)")
+    field(FTVL, "FLOAT")
+    field(NELM, "2000")
+}
