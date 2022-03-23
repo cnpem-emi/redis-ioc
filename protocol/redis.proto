@@ -30,10 +30,11 @@ getHash {
 }
 
 getArray {
-    separator("\n);
+    separator=",";
+    inTerminator="";
     out "LRANGE \$1 0 -1";
-    in" \**%d";
-    in "$%d\n%f";
+    in "%#/([*$][0-9]\r\n)//%#/\r\n/,/%f";
+    @replytimeout {}
 }
 
 setInteger {

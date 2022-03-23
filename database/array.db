@@ -5,8 +5,6 @@ record(aai, "$(RECORD_NAME)") {
     field(INP, "@redis.proto getArray($(REDIS_KEY)) $(PORT)")
     field(PREC, "$(PREC)")
     field(SCAN, "$(SCANRATE) second")
-    field(HIHI, "$(HIHI_VAL)")
-    field(HIGH, "$(HI_VAL)")
-    field(LOLO, "$(LOLO_VAL)")
-    field(LOW, "$(LO_VAL)")
+    field(FTVL, "FLOAT")
+    field(NELM, "2000")
 }
