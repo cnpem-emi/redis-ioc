@@ -62,4 +62,5 @@ setArray {
     separator=" ";
     out "DEL \$1";
     out "LPUSH \$1 %f";
+    out "PUBLISH epics changed";
 }
