@@ -1,32 +1,29 @@
 # Redis IOC
 
-## Utilização
-Modificar a tabela `Redes e Beaglebones.xlsx`, caminho `scripts\spreadsheet`.
+A StreamDevice based EPICS IOC that interfaces with Redis databases.
 
-Cada linha representa uma nova PV.
+## Utilization
+Change the IOC table sync URL in the Makefile or swap out the table in `scripts/spreadsheet`.
 
-Parâmetros obrigatórios:
-- Enabled: `True` habilita a PV, `False` desabilita.
-- IP: IP do servidor Redis (servidor deve usar a porta 6379). Caso exista interesse em usar redundância de endereços, separe cada endereço com uma vírgula (,)
-- Key: Chave Redis
-- PV: Nome da PV
-- Precision: Casas de precisão (para float)
+Each row represents a different PV, and you can configure it through columns.
+
+### Necessary Parameters:
+- Enabled: `True` enables the PV, `False` disables it.
+- IP: Redis server IP (must use port 6379). This IOC also supports redundancy, which must be enabled by setting multiple IPs, separated by commas (,).
+- Key: Redis key
+- PV: PV name
+- Precision: Digits of decimal precision (only applies to float-related fields)
 - Unit: EGU
-- Scanrate: Taxa de scan das PVs (para valores < 1, omita o 0. Exemplo: .1, .01, .001)
-- Type: Tipo de variável (float, float_put, int, int_put, string, string_put)
-    - Variáveis "put" criam duas PVs, uma para setpoint (-SP) e uma para readback (-RB). Para exigir um readback "real", a chave Redis de readback é a chave especificada com o sufixo ":RB"
+- Scanrate: Scanrate. Follows default StreamDevice values.
+- Type: Tipo de variável (float, float_put, int, int_put, string, string_put, array, array_put, hash, hash_put)
+    - Variables with the `put` suffix allow for `caput` commands
 
-Parâmetros opcionais: 
-- Rack: Não afeta o IOC
-- ADDR: Não afeta o IOC (Pode ser usado no futuro)
-- Location: Localização, usado como descrição (DESC) da PV.
-- HIHI/HIGH/LOW/LOLO: Valores de alarme. Afeta os respectivos campos da PV.
-
-A cada deploy do stack, o container puxa novas versões da spreadsheet desse repositório. Basta forçar um update para atualizar com novas PVs.
+### Optional Parameters: 
+- Rack: Doesn't affect the IOC
+- ADDR: Doesn't affect the IOC
+- Location: Passed over to `DESC` field
+- HIHI/HIGH/LOW/LOLO: Alarm values
 
 ## Logs
 
-Localizados em `/opt/redis-ioc/log`
-
-## Performance
-Benchmarks disponíveis no repositório [general-benchmarks](https://gitlab.cnpem.br/guilherme.freitas/raw-ethernet-benchmark)
+Located in `/opt/redis-ioc/log`
