@@ -246,7 +246,7 @@ RUN set -x;\
 
 WORKDIR /opt/redis-ioc
 
-RUN pip3 install setuptools pylightxl && mkdir -p sockets && mkdir -p log
+RUN pip3 install -r requirements.txt && mkdir -p sockets && mkdir -p log
 
 COPY . . 
 
