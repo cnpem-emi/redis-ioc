@@ -7,7 +7,6 @@ from template import (
     redis_template_top,
     redis_template_top_redundant,
     redis_template_port,
-    redis_template_hash,
 )
 
 
@@ -27,36 +26,32 @@ def generate_board(board, ip) -> str:
     else:
         res += redis_template_top.safe_substitute(IP_ADDR=ip)
 
+   
+
+    
+
     for device in board:
-        if device["Type"] == "hash_put" or device["Type"] == "hash":
-            res += redis_template_hash.safe_substitute(
-                DESCRIPTION=device["Location"],
-                RECORD_NAME=device["PV"],
-                SCANRATE=device["Scanrate"].replace("0.", "."),
-                PREC=device["Precision"],
-                EGU=device["Unit"],
-                REDIS_KEY=device["Key"].split("|")[0],
-                REDIS_HASH=device["Key"].split("|")[1],
-                TYPE=device["Type"],
-                HIGH=device["HIGH"],
-                HIHI=device["HIHI"],
-                LOW=device["LOW"],
-                LOLO=device["LOLO"],
-            )
-        else:
-            res += redis_template_float.safe_substitute(
-                DESCRIPTION=device["Location"],
-                RECORD_NAME=device["PV"],
-                SCANRATE=device["Scanrate"].replace("0.", "."),
-                PREC=device["Precision"],
-                EGU=device["Unit"],
-                REDIS_KEY=device["Key"],
-                TYPE=device["Type"],
-                HIGH=device["HIGH"],
-                HIHI=device["HIHI"],
-                LOW=device["LOW"],
-                LOLO=device["LOLO"],
-            )
+        extra = ""
+        if(len(device["Key"].split("|"))==2):
+            extra += f", REDIS_HASH={device['Key'].split('|')[1]}"
+
+        if(device["Type"]=="array_put"):
+            extra += f", PUB_KEY={device['Pub']}"
+
+        res += redis_template_float.safe_substitute(
+            DESCRIPTION=device["Location"],
+            RECORD_NAME=device["PV"],
+            SCANRATE=device["Scanrate"].replace("0.", "."),
+            PREC=device["Precision"],
+            EGU=device["Unit"],
+            REDIS_KEY=device["Key"].split("|")[0],
+            EXTRA=extra,
+            TYPE=device["Type"],
+            HIGH=device["HIGH"],
+            HIHI=device["HIHI"],
+            LOW=device["LOW"],
+            LOLO=device["LOLO"],
+        )
 
         count += 1
 
