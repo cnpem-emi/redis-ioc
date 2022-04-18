@@ -24,6 +24,7 @@ Each row represents a different PV, and you can configure it through columns.
 - ADDR: Doesn't affect the IOC
 - Location: Passed over to `DESC` field
 - HIHI/HIGH/LOW/LOLO: Alarm values
+- Pub: Only used for array/list types, determines the subscription name for one or more PVs (a PUBLISH event is fired on each caput)
 
 ## Supported data types
 
