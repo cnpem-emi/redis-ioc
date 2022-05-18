@@ -246,8 +246,8 @@ RUN set -x;\
 
 WORKDIR /opt/redis-ioc
 
-RUN pip3 install -r requirements.txt && mkdir -p sockets && mkdir -p log
+COPY . .
 
-COPY . . 
+RUN pip3 install wheel && pip3 install -r requirements.txt && mkdir -p sockets && mkdir -p log
 
 CMD ["/bin/bash", "-c", "set -e; cd scripts/; make run"]

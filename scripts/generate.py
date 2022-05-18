@@ -26,10 +26,6 @@ def generate_board(board, ip) -> str:
     else:
         res += redis_template_top.safe_substitute(IP_ADDR=ip)
 
-   
-
-    
-
     for device in board:
         extra = ""
         if(len(device["Key"].split("|"))==2):
