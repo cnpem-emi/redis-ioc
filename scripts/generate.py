@@ -28,10 +28,10 @@ def generate_board(board, ip) -> str:
 
     for device in board:
         extra = ""
-        if(len(device["Key"].split("|"))==2):
+        if len(device["Key"].split("|")) == 2:
             extra += f", REDIS_HASH={device['Key'].split('|')[1]}"
 
-        if(device["Type"]=="array_put"):
+        if device["Type"] == "array_put":
             extra += f", PUB_KEY={device['Pub']}"
 
         res += redis_template_float.safe_substitute(
