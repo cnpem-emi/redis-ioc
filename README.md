@@ -7,6 +7,8 @@ Change the IOC table sync URL in the Makefile or swap out the table in `scripts/
 
 Each row represents a different PV, and you can configure it through columns.
 
+Then, run `generate.py`. A `cmd` folder will be generated.
+
 ### Necessary Parameters:
 - Enabled: `True` enables the PV, `False` disables it.
 - IP: Redis server IP (must use port 6379). This IOC also supports redundancy, which must be enabled by setting multiple IPs, separated by commas (,).
